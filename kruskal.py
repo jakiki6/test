@@ -23,17 +23,25 @@ def kruskal(G):
     edges = list(G.edges())
     edges.sort(key = lambda edge: G.edges[edge]["weight"]) # O(E log E)
 
+    done = []
     newedges = []
+    c = 0
     for edge in edges:#gehe alle kanten durch
-        test_newedges = copy.deepcopy(newedges)
-        test_newedges.append(edge)
-        try:
-            nx.find_cycle(nx.Graph(test_newedges))# wenn der graph mit den neuen kanten keinen kreis enthält, dann schmeißt das nen error
-        except:
+        if not (G.degree(edge[0]) % 2 and G.degree(edge[1]) % 2) and odd:
+            continue
+        if edge[0] in done or edge[1] in done:
+            continue
+        else:
+            done.append(edge[0])
+            done.append(edge[1])
             newedges.append(edge)
+        c += 1
+    if c % 2:
+        print("Nicht perfekt")
     
     draw(G, newedges)
     return nx.Graph(newedges)
 
+odd = False
 
 kruskal(G)
