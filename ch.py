@@ -182,3 +182,5 @@ if len(sys.argv) < 2:
 file = " ".join(sys.argv[1:])
 G, results = christofides(file)
 print(file, weight(results, G))
+
+draw(G, results)
